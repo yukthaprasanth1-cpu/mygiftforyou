@@ -1,0 +1,1148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Birthday ♡</title>
+
+<style>
+*{box-sizing:border-box}
+
+html,body{
+    margin:0;
+    padding:0;
+    min-height:100%;
+}
+
+body{
+    background:#fffaf7;
+    color:#654b55;
+    font-family:Georgia,"Times New Roman",serif;
+    overflow-x:hidden;
+}
+
+.page{
+    display:none;
+    min-height:100vh;
+    width:100%;
+    padding:40px 20px;
+    align-items:center;
+    justify-content:center;
+    flex-direction:column;
+    text-align:center;
+}
+
+.page.active{
+    display:flex;
+}
+
+h1,h2,h3{
+    color:#91566c;
+}
+
+button{
+    font-family:inherit;
+}
+
+.btn{
+    border:0;
+    background:#a9687d;
+    color:white;
+    padding:14px 25px;
+    border-radius:30px;
+    font-size:16px;
+    cursor:pointer;
+    margin-top:20px;
+}
+
+.btn:active{
+    transform:scale(.97);
+}
+
+/* LOCK */
+
+#lock{
+    background:linear-gradient(135deg,#fff9f5,#ffeef3);
+}
+
+.lock-box{
+    width:min(430px,100%);
+    background:white;
+    padding:40px 25px;
+    border-radius:30px;
+    box-shadow:0 15px 45px rgba(100,60,80,.12);
+}
+
+.heart{
+    font-size:80px;
+    animation:beat 1.7s infinite;
+}
+
+@keyframes beat{
+    50%{transform:scale(1.08)}
+}
+
+.lock-box h1{
+    font-size:30px;
+    margin:10px 0;
+}
+
+.lock-box p{
+    line-height:1.7;
+}
+
+.question{
+    margin-top:25px;
+}
+
+.question label{
+    display:block;
+    font-size:18px;
+    margin-bottom:12px;
+}
+
+input{
+    width:100%;
+    padding:14px;
+    border:1px solid #e5ccd5;
+    border-radius:14px;
+    font-size:16px;
+    text-align:center;
+    outline:none;
+}
+
+.error{
+    color:#c35c76;
+    min-height:25px;
+    margin-top:10px;
+}
+
+.hidden{
+    display:none!important;
+}
+
+/* SONGS */
+
+#songs{
+    background:linear-gradient(#fffaf7,#fdf0f4);
+}
+
+.title{
+    font-size:36px;
+    margin:0 0 12px;
+}
+
+.subtitle{
+    max-width:650px;
+    font-size:18px;
+    line-height:1.8;
+}
+
+.song-list{
+    width:min(560px,100%);
+    margin-top:25px;
+}
+
+.song{
+    width:100%;
+    border:1px solid #e6cbd5;
+    background:white;
+    border-radius:20px;
+    padding:18px;
+    margin:8px 0;
+    color:#654b55;
+    font-size:16px;
+    cursor:pointer;
+}
+
+/* MUSIC PLAYER */
+
+#musicPlayer{
+    display:none;
+    position:fixed;
+    z-index:9999;
+    bottom:15px;
+    left:50%;
+    transform:translateX(-50%);
+    width:min(420px,calc(100% - 30px));
+    background:white;
+    border:1px solid #e5ccd5;
+    border-radius:25px;
+    padding:10px 14px;
+    box-shadow:0 8px 30px rgba(70,40,55,.18);
+    align-items:center;
+    gap:10px;
+}
+
+#musicButton{
+    width:40px;
+    height:40px;
+    border:0;
+    border-radius:50%;
+    background:#a9687d;
+    color:white;
+}
+
+#musicName{
+    font-size:13px;
+    text-align:left;
+}
+
+/* INTRO */
+
+#intro{
+    background:#fffaf7;
+}
+
+#intro .big{
+    font-size:75px;
+}
+
+#intro h1{
+    font-size:44px;
+}
+
+#intro p{
+    max-width:650px;
+    font-size:20px;
+    line-height:2;
+}
+
+/* MEMORIES */
+
+#memories{
+    justify-content:flex-start;
+    padding-top:60px;
+}
+
+.memory-grid{
+    width:min(900px,100%);
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:20px;
+    margin-top:30px;
+}
+
+.memory{
+    background:white;
+    padding:12px 12px 20px;
+    box-shadow:0 8px 25px rgba(80,50,65,.12);
+}
+
+.memory img{
+    width:100%;
+    aspect-ratio:1;
+    object-fit:cover;
+    display:block;
+}
+
+.memory p{
+    margin:14px 5px 0;
+}
+
+@media(max-width:700px){
+    .memory-grid{
+        grid-template-columns:1fr;
+        width:min(400px,100%);
+    }
+}
+
+/* ENVELOPE */
+
+#envelopePage{
+    background:linear-gradient(#fff9f5,#fdeef3);
+}
+
+.envelope{
+    width:min(360px,90vw);
+    height:230px;
+    position:relative;
+    margin:35px auto;
+    cursor:pointer;
+}
+
+.env-body{
+    position:absolute;
+    left:0;
+    right:0;
+    bottom:0;
+    top:30px;
+    background:#d98ca3;
+    border-radius:5px;
+}
+
+.env-flap{
+    position:absolute;
+    top:30px;
+    left:0;
+    width:0;
+    height:0;
+    border-left:180px solid transparent;
+    border-right:180px solid transparent;
+    border-top:125px solid #c97991;
+    transform-origin:top;
+    transition:1s;
+    z-index:4;
+}
+
+.env-letter{
+    position:absolute;
+    left:8%;
+    width:84%;
+    height:165px;
+    bottom:10px;
+    background:#fffdf9;
+    padding:20px;
+    z-index:2;
+    transition:1s;
+}
+
+.envelope.open .env-flap{
+    transform:rotateX(180deg);
+    z-index:1;
+}
+
+.envelope.open .env-letter{
+    transform:translateY(-115px);
+}
+
+/* EDITS */
+
+#edits{
+    justify-content:flex-start;
+    padding-top:55px;
+}
+
+.edit{
+    width:min(800px,100%);
+    background:white;
+    padding:15px;
+    margin:20px 0;
+    border-radius:18px;
+    box-shadow:0 8px 25px rgba(80,50,65,.12);
+}
+
+.edit h3{
+    margin:5px 0 15px;
+}
+
+.edit video{
+    width:100%;
+    max-height:75vh;
+    display:block;
+    background:#111;
+    border-radius:12px;
+}
+
+/* NOTES */
+
+#notes{
+    background:linear-gradient(#fffaf7,#fff0f4);
+}
+
+.jar{
+    font-size:110px;
+}
+
+.note{
+    width:min(520px,100%);
+    min-height:190px;
+    background:#fffef9;
+    padding:35px 25px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    box-shadow:0 12px 35px rgba(80,50,65,.13);
+    margin:20px 0;
+}
+
+.note p{
+    font-size:21px;
+    line-height:1.8;
+}
+
+.count{
+    color:#8f6070;
+}
+
+/* LETTER */
+
+#letter{
+    justify-content:flex-start;
+    background:#fffdf8;
+    padding-top:55px;
+    padding-bottom:100px;
+}
+
+.paper{
+    width:min(720px,100%);
+    padding:45px 30px 70px;
+    border-left:8px solid #f2d5dd;
+    background:
+    repeating-linear-gradient(
+        to bottom,
+        transparent 0,
+        transparent 38px,
+        #eadde0 39px
+    );
+    box-shadow:0 10px 30px rgba(80,50,65,.08);
+}
+
+.paper h2{
+    font-size:35px;
+    line-height:1.4;
+    margin-bottom:45px;
+}
+
+.paper p{
+    text-align:left;
+    font-size:20px;
+    line-height:2.05;
+    margin-bottom:35px;
+}
+
+.signature{
+    text-align:right;
+    font-size:21px;
+    color:#8e5367;
+    margin-top:45px;
+}
+
+/* FINAL */
+
+#final{
+    position:relative;
+    overflow:hidden;
+    background:#fffaf7;
+}
+
+.final-content{
+    position:relative;
+    z-index:5;
+}
+
+.final-title{
+    font-size:clamp(45px,10vw,85px);
+    margin:0;
+    opacity:0;
+    animation:appear 2.5s forwards;
+}
+
+.final-sub{
+    font-size:clamp(18px,4vw,27px);
+    opacity:0;
+    animation:appear 2.5s 1.5s forwards;
+}
+
+@keyframes appear{
+    from{
+        opacity:0;
+        transform:translateY(20px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+.falling{
+    position:absolute;
+    top:-40px;
+    z-index:1;
+    animation:fall linear forwards;
+    pointer-events:none;
+}
+
+@keyframes fall{
+    from{
+        transform:translateY(-50px) rotate(0);
+        opacity:0;
+    }
+    10%{opacity:.9}
+    to{
+        transform:translateY(110vh) rotate(360deg);
+        opacity:0;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- ================= LOCK ================= -->
+
+<section id="lock" class="page active">
+
+<div class="lock-box">
+
+<div class="heart">♡</div>
+
+<h1>A little surprise awaits...</h1>
+
+<p>
+Three little questions first.<br>
+Let's see if you remember. 🌷
+</p>
+
+<div id="q1" class="question">
+
+<label>What nickname do I call you? ♡</label>
+
+<input id="a1" type="text" placeholder="Your answer">
+
+<button class="btn" onclick="answer1()">Unlock ♡</button>
+
+</div>
+
+
+<div id="q2" class="question hidden">
+
+<label>When is our anniversary? 🌷</label>
+
+<input id="a2" type="text" placeholder="Your answer">
+
+<button class="btn" onclick="answer2()">Next ♡</button>
+
+</div>
+
+
+<div id="q3" class="question hidden">
+
+<label>What's my favourite flower? 🌸</label>
+
+<input id="a3" type="text" placeholder="Your answer">
+
+<button class="btn" onclick="answer3()">Unlock the surprise ♡</button>
+
+</div>
+
+<div id="error" class="error"></div>
+
+</div>
+
+</section>
+
+
+<!-- ================= SONGS ================= -->
+
+<section id="songs" class="page">
+
+<h1 class="title">Choose a song ♡</h1>
+
+<p class="subtitle">
+Pick the song you want to hear while you go through this little surprise.
+</p>
+
+<div class="song-list">
+
+<button class="song" onclick="playSong(0)">
+🎵 I Thought I Saw Your Face Today
+<br>
+<small>She & Him</small>
+</button>
+
+<button class="song" onclick="playSong(1)">
+🎵 The Way I Loved You
+<br>
+<small>Taylor Swift</small>
+</button>
+
+<button class="song" onclick="playSong(2)">
+🎵 Can't Help Falling in Love
+<br>
+<small>Elvis Presley</small>
+</button>
+
+</div>
+
+</section>
+
+
+<!-- ================= INTRO ================= -->
+
+<section id="intro" class="page">
+
+<div class="big">💗</div>
+
+<h1>Happy Birthday ♡</h1>
+
+<p>
+I couldn't be there beside you to wish you in person,
+so I made you a tiny little world instead.
+Take your time going through it. ♡
+</p>
+
+<button class="btn" onclick="show('memories')">
+Start the surprise →
+</button>
+
+</section>
+
+
+<!-- ================= MEMORIES ================= -->
+
+<section id="memories" class="page">
+
+<h1 class="title">The memories we share ♡</h1>
+
+<p class="subtitle">
+Some moments are small, but somehow they become the ones
+you remember the most.
+</p>
+
+<div class="memory-grid">
+
+<div class="memory">
+<img src="2a9c0291-d66a-46a7-bd40-6d751050d81c.JPG">
+<p>A little moment I'll always keep. ♡</p>
+</div>
+
+<div class="memory">
+<img src="IMG_6830.jpg">
+<p>Another memory that makes me smile.</p>
+</div>
+
+<div class="memory">
+<img src="IMG_8104.jpg">
+<p>One more little piece of us. 🌷</p>
+</div>
+
+</div>
+
+<button class="btn" onclick="show('envelopePage')">
+There's more ♡
+</button>
+
+</section>
+
+
+<!-- ================= ENVELOPE ================= -->
+
+<section id="envelopePage" class="page">
+
+<h1 class="title">A letter for you 💌</h1>
+
+<p class="subtitle">
+There's something waiting inside.
+</p>
+
+<div id="envelope" class="envelope" onclick="openEnvelope()">
+
+<div class="env-body"></div>
+
+<div class="env-letter">
+
+<h3>For you ♡</h3>
+
+<p>
+A little collection of memories,
+feelings and things I've wanted to say.
+</p>
+
+</div>
+
+<div class="env-flap"></div>
+
+</div>
+
+<button id="envelopeButton" class="btn hidden"
+onclick="show('edits')">
+Continue ♡
+</button>
+
+</section>
+
+
+<!-- ================= EDITS ================= -->
+
+<section id="edits" class="page">
+
+<h1 class="title">A couple of things I made for you 🎬</h1>
+
+<p class="subtitle">
+Watch them whenever you're ready. ♡
+</p>
+
+<div class="edit">
+
+<h3>Edit One</h3>
+
+<video controls playsinline webkit-playsinline preload="metadata">
+<source src="Edit1.mp4" type="video/mp4">
+Your browser cannot play this video.
+</video>
+
+</div>
+
+
+<div class="edit">
+
+<h3>Edit Two</h3>
+
+<video controls playsinline webkit-playsinline preload="metadata">
+<source src="Edit2.mp4" type="video/mp4">
+Your browser cannot play this video.
+</video>
+
+</div>
+
+
+<button class="btn" onclick="show('notes')">
+I have something else for you ♡
+</button>
+
+</section>
+
+
+<!-- ================= NOTES ================= -->
+
+<section id="notes" class="page">
+
+<h1 class="title">Ten little notes for you 🫙</h1>
+
+<div class="jar">🫙</div>
+
+<div id="count" class="count">
+10 notes remaining
+</div>
+
+<div class="note">
+
+<p id="noteText">
+Tap the jar to get a little note. ♡
+</p>
+
+</div>
+
+<button id="noteButton" class="btn" onclick="getNote()">
+Pick a note ♡
+</button>
+
+<button id="letterButton" class="btn hidden"
+onclick="show('letter')">
+Continue to my letter →
+</button>
+
+</section>
+
+
+<!-- ================= BIG LETTER ================= -->
+
+<section id="letter" class="page">
+
+<div class="paper">
+
+<h2>
+Things I hope you always remember ♡
+</h2>
+
+<p>
+We've had so many little moments together that somehow became
+some of my favourite memories. I loved spending time with your
+family and having you around my brothers too, watching movies
+together, staying up talking until two or three in the morning,
+and just being together even when we weren't doing anything
+particularly special.
+</p>
+
+<p>
+I still think about the evenings we spent singing together,
+and honestly, I could hear you sing the same song a million
+times and still love listening to you. I also love remembering
+the times we cooked together, even though I mostly ended up
+watching you and taking videos because you never really let me
+do much of the work. And yes, I absolutely loved taking those
+videos of you.
+</p>
+
+<p>
+You used to be there whenever I needed you, except for the
+times you were busy, and that meant more to me than I probably
+ever said properly. And then there were the flowers. Whenever
+we went somewhere and you saw flowers, you'd pick one for me.
+Even those tiny little sunflower-looking flowers — you'd pick
+six or seven of them and somehow turn them into the cutest
+little bouquet.
+</p>
+
+<p>
+I'll always remember the first bouquet especially. It had
+yellow flowers, purple flowers whose name I still don't know,
+a pink rose, and hibiscus. It was such a simple thing, but
+receiving flowers from you made it feel incredibly special.
+Those little gestures stayed with me.
+</p>
+
+<p>
+And somehow, even after all this time, there is still one
+extremely important unfinished matter...
+</p>
+
+<p>
+The cheesecake. 😭
+Four months. I asked for cheesecake for FOUR MONTHS.
+And somehow I am still waiting.
+Honestly, the fact that I still care about you after that
+is proof that I really do love you. 😂🤍
+</p>
+
+<p>
+But jokes aside, no matter who you become or where life takes
+you, I hope you always remember that you mattered to me.
+These memories are precious to me, and the time we shared
+will always have a special little place in my heart.
+</p>
+
+<p>
+So on your birthday, I just hope you take care of yourself,
+be careful, enjoy your year, and make it a really good one.
+You deserve beautiful things, peaceful days, genuine happiness,
+and so many reasons to smile.
+</p>
+
+<div class="signature">
+Happy birthday. ♡<br><br>
+And I am STILL waiting for my cheesecake. 😭🍰
+</div>
+
+<button class="btn" onclick="finalScreen()">
+One last thing… ♡
+</button>
+
+</div>
+
+</section>
+
+
+<!-- ================= FINAL ================= -->
+
+<section id="final" class="page">
+
+<div class="final-content">
+
+<h1 class="final-title">
+Happy Birthday, Carina
+</h1>
+
+<p class="final-sub">
+You are loved more than you imagine.
+</p>
+
+</div>
+
+</section>
+
+
+<!-- ================= AUDIO ================= -->
+
+<audio id="song0"
+src="AUDIO-2026-09-05-14-00-58.mp3"
+preload="auto"
+loop></audio>
+
+<audio id="song1"
+src="AUDIO-2026-09-05-14-01-16.mp3"
+preload="auto"
+loop></audio>
+
+<audio id="song2"
+src="AUDIO-2026-09-05-14-01-33.mp3"
+preload="auto"
+loop></audio>
+
+
+<!-- ================= PLAYER ================= -->
+
+<div id="musicPlayer">
+
+<button id="musicButton" onclick="toggleMusic()">❚❚</button>
+
+<div id="musicName">
+Music
+</div>
+
+</div>
+
+
+<script>
+
+/* PAGE NAVIGATION */
+
+function show(id){
+
+    document.querySelectorAll(".page").forEach(function(page){
+        page.classList.remove("active");
+    });
+
+    const page=document.getElementById(id);
+
+    if(page){
+        page.classList.add("active");
+        window.scrollTo(0,0);
+    }
+}
+
+
+/* LOCK */
+
+function clean(value){
+    return value.trim().toLowerCase().replace(/\s+/g," ");
+}
+
+function answer1(){
+
+    const value=clean(document.getElementById("a1").value);
+
+    if(value==="carino" || value==="carina"){
+
+        document.getElementById("q1").classList.add("hidden");
+        document.getElementById("q2").classList.remove("hidden");
+        document.getElementById("error").textContent="";
+
+    }else{
+
+        document.getElementById("error").textContent="Hmm… try again ♡";
+    }
+}
+
+
+function answer2(){
+
+    const value=clean(document.getElementById("a2").value);
+
+    if(
+        value==="23 january" ||
+        value==="january 23" ||
+        value==="23/01" ||
+        value==="23-01" ||
+        value==="23 01"
+    ){
+
+        document.getElementById("q2").classList.add("hidden");
+        document.getElementById("q3").classList.remove("hidden");
+        document.getElementById("error").textContent="";
+
+    }else{
+
+        document.getElementById("error").textContent=
+        "That's not it… think about our date 🌷";
+    }
+}
+
+
+function answer3(){
+
+    const value=clean(document.getElementById("a3").value);
+
+    if(value==="lily"){
+
+        document.getElementById("error").textContent="";
+        show("songs");
+
+    }else{
+
+        document.getElementById("error").textContent=
+        "One last clue… it's a flower 🌸";
+    }
+}
+
+
+/* MUSIC */
+
+let currentSong=null;
+
+const songNames=[
+    "I Thought I Saw Your Face Today — She & Him",
+    "The Way I Loved You — Taylor Swift",
+    "Can't Help Falling in Love — Elvis Presley"
+];
+
+
+function playSong(index){
+
+    const songs=[
+        document.getElementById("song0"),
+        document.getElementById("song1"),
+        document.getElementById("song2")
+    ];
+
+    songs.forEach(function(song){
+        song.pause();
+    });
+
+    currentSong=songs[index];
+
+    document.getElementById("musicName").textContent=
+    songNames[index];
+
+    document.getElementById("musicPlayer").style.display="flex";
+
+    currentSong.currentTime=0;
+
+    currentSong.play().then(function(){
+
+        document.getElementById("musicButton").textContent="❚❚";
+
+    }).catch(function(){
+
+        document.getElementById("musicButton").textContent="▶";
+
+    });
+
+    show("intro");
+}
+
+
+function toggleMusic(){
+
+    if(!currentSong)return;
+
+    if(currentSong.paused){
+
+        currentSong.play();
+
+        document.getElementById("musicButton").textContent="❚❚";
+
+    }else{
+
+        currentSong.pause();
+
+        document.getElementById("musicButton").textContent="▶";
+    }
+}
+
+
+/* ENVELOPE */
+
+let opened=false;
+
+function openEnvelope(){
+
+    if(opened)return;
+
+    opened=true;
+
+    document.getElementById("envelope")
+    .classList.add("open");
+
+    setTimeout(function(){
+
+        document.getElementById("envelopeButton")
+        .classList.remove("hidden");
+
+    },1000);
+}
+
+
+/* NOTES */
+
+const notes=[
+
+"You make ordinary moments feel like little memories I want to keep forever. ♡",
+
+"I still remember the tiny flowers you used to pick for me. They meant more than you probably knew. 🌼",
+
+"Even after hearing the same song a million times, I could still listen to you sing it again. 🎶",
+
+"Some of my favourite memories are the quiet ones — late talks, random laughs, and just being together. 🌙",
+
+"You are one of those people who left little pieces of happiness in my memories. 🤍",
+
+"I love the way you used to turn a few tiny flowers into the cutest little bouquet. 🌻",
+
+"Movie nights, cooking together, singing in the evening… I would replay those days if I could. 🎬",
+
+"No matter who you become, I hope you always know that you mattered to me deeply. ♡",
+
+"I still adore the memory of that first bouquet — yellow, purple, pink and hibiscus. 💐",
+
+"And yes… I am STILL waiting for that cheesecake. Four months and counting. 😭🍰"
+
+];
+
+let remaining=notes.slice();
+
+
+function getNote(){
+
+    if(remaining.length===0)return;
+
+    const index=Math.floor(Math.random()*remaining.length);
+
+    const note=remaining.splice(index,1)[0];
+
+    document.getElementById("noteText").textContent=note;
+
+    if(remaining.length===0){
+
+        document.getElementById("count").textContent=
+        "You found all 10 notes. ♡";
+
+        document.getElementById("noteButton")
+        .classList.add("hidden");
+
+        document.getElementById("letterButton")
+        .classList.remove("hidden");
+
+    }else{
+
+        document.getElementById("count").textContent=
+        remaining.length+
+        (remaining.length===1
+        ?" note remaining"
+        :" notes remaining");
+    }
+}
+
+
+/* FINAL */
+
+function finalScreen(){
+
+    show("final");
+
+    createFalling();
+}
+
+
+function createFalling(){
+
+    const symbols=[
+        "🌸","🌷","🌼","🌿","🍃","✦","♡"
+    ];
+
+    for(let i=0;i<35;i++){
+
+        setTimeout(function(){
+
+            const item=document.createElement("div");
+
+            item.className="falling";
+
+            item.textContent=
+            symbols[Math.floor(Math.random()*symbols.length)];
+
+            item.style.left=
+            Math.random()*100+"%";
+
+            item.style.fontSize=
+            (15+Math.random()*18)+"px";
+
+            item.style.animationDuration=
+            (6+Math.random()*7)+"s";
+
+            document.getElementById("final")
+            .appendChild(item);
+
+            setTimeout(function(){
+                item.remove();
+            },15000);
+
+        },i*300);
+    }
+}
+
+</script>
+
+</body>
+</html>
