@@ -1,0 +1,1728 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0,
+      maximum-scale=1.0, user-scalable=no">
+
+<title>For You ♡</title>
+
+<style>
+* {
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: Georgia, "Times New Roman", serif;
+    background:
+        radial-gradient(circle at 20% 10%, rgba(255,255,255,.9), transparent 28%),
+        radial-gradient(circle at 80% 80%, rgba(255,220,230,.5), transparent 30%),
+        #f9eee5;
+    color: #513d3d;
+    overflow-x: hidden;
+}
+
+/* =========================
+   GENERAL
+========================= */
+
+.section {
+    min-height: 100vh;
+    width: 100%;
+    display: none;
+    position: relative;
+    padding: 45px 20px 80px;
+    overflow: hidden;
+}
+
+.section.active {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    animation: fadeIn .8s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+h1, h2, h3, p {
+    position: relative;
+    z-index: 2;
+}
+
+button {
+    font-family: Georgia, "Times New Roman", serif;
+    cursor: pointer;
+}
+
+/* =========================
+   LOCK
+========================= */
+
+#lock {
+    background:
+        radial-gradient(circle at center, #fffaf7 0%, #f7e7e1 100%);
+    text-align: center;
+}
+
+.lock-flower {
+    position: absolute;
+    font-size: 28px;
+    opacity: .55;
+}
+
+.lf1 { top: 12%; left: 10%; transform: rotate(-20deg); }
+.lf2 { top: 20%; right: 11%; transform: rotate(25deg); }
+.lf3 { bottom: 17%; left: 12%; }
+.lf4 { bottom: 10%; right: 12%; transform: rotate(-25deg); }
+
+.lock-heart {
+    width: 130px;
+    height: 130px;
+    border-radius: 50%;
+    background: #e89aaa;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 62px;
+    color: white;
+    box-shadow: 0 15px 35px rgba(140,70,80,.2);
+    animation: heartBeat 2s infinite;
+    margin-bottom: 30px;
+}
+
+@keyframes heartBeat {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.06); }
+}
+
+#lock h1 {
+    font-size: clamp(30px, 8vw, 48px);
+    font-weight: normal;
+    margin: 0 0 10px;
+}
+
+.subtitle {
+    font-size: 16px;
+    opacity: .72;
+    margin-bottom: 28px;
+}
+
+.question {
+    font-size: 20px;
+    margin: 25px 0 15px;
+}
+
+.answer {
+    width: min(330px, 90vw);
+    padding: 15px 18px;
+    border: 1px solid #d7b8b8;
+    border-radius: 14px;
+    background: rgba(255,255,255,.7);
+    font-size: 17px;
+    text-align: center;
+    outline: none;
+    color: #513d3d;
+}
+
+.answer:focus {
+    border-color: #c98998;
+    box-shadow: 0 0 0 3px rgba(201,137,152,.12);
+}
+
+.lock-btn,
+.next-btn {
+    margin-top: 18px;
+    padding: 13px 28px;
+    border: none;
+    border-radius: 30px;
+    background: #b96d7c;
+    color: white;
+    font-size: 16px;
+    box-shadow: 0 8px 20px rgba(130,70,80,.15);
+}
+
+.lock-btn:active,
+.next-btn:active {
+    transform: scale(.97);
+}
+
+#error {
+    min-height: 25px;
+    margin-top: 12px;
+    color: #a14d5e;
+    font-size: 14px;
+}
+
+/* =========================
+   SONGS
+========================= */
+
+#songs {
+    text-align: center;
+    background:
+        linear-gradient(rgba(255,250,246,.92), rgba(250,235,228,.95));
+}
+
+#songs h1 {
+    font-size: clamp(32px, 8vw, 50px);
+    font-weight: normal;
+    margin-bottom: 8px;
+}
+
+.song-subtitle {
+    max-width: 430px;
+    line-height: 1.7;
+    opacity: .75;
+    margin-bottom: 28px;
+}
+
+.song-list {
+    width: min(440px, 94vw);
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.song-card {
+    background: rgba(255,255,255,.76);
+    border: 1px solid #ead5d0;
+    border-radius: 18px;
+    padding: 17px 18px;
+    text-align: left;
+    box-shadow: 0 8px 22px rgba(90,55,55,.07);
+    transition: .25s;
+}
+
+.song-card:active {
+    transform: scale(.98);
+}
+
+.song-title {
+    font-size: 17px;
+    margin-bottom: 5px;
+}
+
+.song-artist {
+    font-size: 14px;
+    opacity: .62;
+}
+
+.music-choice {
+    margin-top: 28px;
+    font-size: 14px;
+    opacity: .65;
+}
+
+/* =========================
+   INTRO
+========================= */
+
+#intro {
+    text-align: center;
+    background:
+        radial-gradient(circle at 50% 30%, #fffdfb, #f7e6df);
+}
+
+.intro-flower {
+    font-size: 60px;
+    margin-bottom: 25px;
+    animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%,100% { transform: translateY(0); }
+    50% { transform: translateY(-9px); }
+}
+
+#intro h1 {
+    font-size: clamp(38px, 10vw, 65px);
+    font-weight: normal;
+    margin: 0 0 18px;
+}
+
+.intro-text {
+    max-width: 520px;
+    line-height: 1.9;
+    font-size: 18px;
+    opacity: .78;
+}
+
+/* =========================
+   MEMORIES
+========================= */
+
+#memories {
+    justify-content: flex-start !important;
+    background:
+        linear-gradient(180deg, #faf0e9, #f6e4df);
+}
+
+#memories h1 {
+    font-size: clamp(32px, 8vw, 48px);
+    font-weight: normal;
+    text-align: center;
+    margin: 20px 0 10px;
+}
+
+.memories-sub {
+    text-align: center;
+    opacity: .68;
+    margin-bottom: 30px;
+}
+
+.photo-stack {
+    width: min(480px, 94vw);
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.memory-card {
+    background: #fffdf9;
+    padding: 12px 12px 20px;
+    box-shadow:
+        0 12px 28px rgba(70,45,40,.13);
+    transform: rotate(-1deg);
+}
+
+.memory-card:nth-child(2) {
+    transform: rotate(1.3deg);
+}
+
+.memory-card:nth-child(3) {
+    transform: rotate(-.7deg);
+}
+
+.memory-card img {
+    display: block;
+    width: 100%;
+    height: auto;
+    max-height: 600px;
+    object-fit: cover;
+    border-radius: 2px;
+}
+
+.memory-caption {
+    text-align: center;
+    font-size: 15px;
+    margin: 13px 4px 0;
+    opacity: .65;
+    font-style: italic;
+}
+
+/* =========================
+   ENVELOPE
+========================= */
+
+#envelopeScreen {
+    background:
+        radial-gradient(circle at center, #fffaf7, #f2dfd9);
+    text-align: center;
+}
+
+#envelopeScreen h1 {
+    font-size: clamp(30px, 8vw, 48px);
+    font-weight: normal;
+    margin-bottom: 35px;
+}
+
+.envelope-area {
+    width: min(360px, 90vw);
+    height: 250px;
+    position: relative;
+    perspective: 900px;
+}
+
+.envelope {
+    position: absolute;
+    width: 100%;
+    height: 190px;
+    bottom: 0;
+    background: #e7b5ad;
+    border-radius: 4px;
+    box-shadow: 0 18px 30px rgba(90,55,50,.18);
+    overflow: visible;
+}
+
+.envelope:before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: #dca39d;
+    clip-path: polygon(0 0, 50% 55%, 100% 0, 100% 100%, 0 100%);
+    z-index: 2;
+}
+
+.envelope-flap {
+    position: absolute;
+    width: 100%;
+    height: 120px;
+    top: 0;
+    left: 0;
+    background: #edc0b9;
+    clip-path: polygon(0 0, 100% 0, 50% 75%);
+    transform-origin: top center;
+    transition: transform 1s ease;
+    z-index: 4;
+}
+
+.letter-paper {
+    position: absolute;
+    width: 84%;
+    height: 190px;
+    left: 8%;
+    bottom: 15px;
+    background: #fffdf8;
+    border: 1px solid #eadfd2;
+    z-index: 1;
+    padding: 22px;
+    font-size: 16px;
+    line-height: 1.6;
+    text-align: center;
+    transition: transform 1s ease;
+}
+
+.envelope.open .envelope-flap {
+    transform: rotateX(180deg);
+}
+
+.envelope.open .letter-paper {
+    transform: translateY(-125px);
+    z-index: 5;
+}
+
+.open-envelope-btn {
+    margin-top: 28px;
+    padding: 13px 28px;
+    border: none;
+    border-radius: 30px;
+    background: #b96d7c;
+    color: white;
+    font-size: 16px;
+}
+
+.envelope-hint {
+    margin-top: 22px;
+    opacity: .55;
+    font-size: 14px;
+}
+
+/* =========================
+   EDITS
+========================= */
+
+#edits {
+    justify-content: flex-start !important;
+    background:
+        linear-gradient(180deg, #fbf1ea, #f5e4df);
+}
+
+#edits h1 {
+    font-size: clamp(34px, 8vw, 50px);
+    font-weight: normal;
+    text-align: center;
+    margin: 15px 0 8px;
+}
+
+.edits-sub {
+    text-align: center;
+    opacity: .67;
+    margin-bottom: 30px;
+}
+
+.video-list {
+    width: min(700px, 96vw);
+    display: flex;
+    flex-direction: column;
+    gap: 35px;
+}
+
+.video-card {
+    background: #fffdf9;
+    padding: 12px;
+    border-radius: 10px;
+    box-shadow: 0 12px 28px rgba(70,45,40,.12);
+}
+
+.video-card h2 {
+    text-align: center;
+    font-size: 20px;
+    font-weight: normal;
+    margin: 8px 0 15px;
+}
+
+.video-card video {
+    display: block;
+    width: 100%;
+    max-height: 75vh;
+    background: #1c1717;
+    border-radius: 7px;
+    object-fit: contain;
+}
+
+/* =========================
+   NOTES JAR
+========================= */
+
+#notesJar {
+    text-align: center;
+    background:
+        radial-gradient(circle at center, #fffaf6, #f2dfd9);
+}
+
+#notesJar h1 {
+    font-size: clamp(34px, 8vw, 50px);
+    font-weight: normal;
+    margin-bottom: 5px;
+}
+
+.jar-sub {
+    opacity: .68;
+    margin-bottom: 30px;
+}
+
+.jar {
+    width: 170px;
+    height: 220px;
+    border: 5px solid rgba(150,110,100,.45);
+    border-radius: 45px 45px 35px 35px;
+    background: rgba(255,255,255,.34);
+    position: relative;
+    margin: 10px auto 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow:
+        inset 0 0 25px rgba(255,255,255,.65),
+        0 18px 30px rgba(80,55,50,.12);
+}
+
+.jar-lid {
+    position: absolute;
+    top: -28px;
+    width: 125px;
+    height: 32px;
+    border-radius: 8px;
+    background: #c9908b;
+}
+
+.jar-heart {
+    font-size: 68px;
+    opacity: .72;
+}
+
+.note-display {
+    width: min(440px, 92vw);
+    min-height: 150px;
+    background: #fffdf8;
+    border: 1px solid #eaded4;
+    padding: 28px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    line-height: 1.8;
+    font-size: 18px;
+    box-shadow: 0 10px 25px rgba(80,55,50,.08);
+    transform: rotate(-.5deg);
+}
+
+.note-count {
+    margin-top: 15px;
+    font-size: 14px;
+    opacity: .6;
+}
+
+.note-btn {
+    margin-top: 22px;
+    padding: 13px 28px;
+    border: none;
+    border-radius: 30px;
+    background: #b96d7c;
+    color: white;
+    font-size: 16px;
+}
+
+.note-btn:disabled {
+    opacity: .45;
+}
+
+/* =========================
+   LETTER
+========================= */
+
+#letter {
+    justify-content: flex-start !important;
+    background:
+        repeating-linear-gradient(
+            to bottom,
+            #fffaf5 0px,
+            #fffaf5 37px,
+            #eadfe0 38px,
+            #fffaf5 39px
+        );
+    padding-top: 65px;
+}
+
+.paper {
+    width: min(720px, 94vw);
+    background: rgba(255,253,248,.93);
+    padding: 38px 30px 55px;
+    border-left: 1px solid #dfd1d0;
+    border-right: 1px solid #dfd1d0;
+    box-shadow: 0 15px 40px rgba(70,50,50,.1);
+}
+
+.paper-title {
+    font-size: clamp(34px, 8vw, 52px);
+    font-weight: normal;
+    text-align: center;
+    margin: 0 0 35px;
+}
+
+.letter-content {
+    font-size: 18px;
+    line-height: 2;
+    color: #574545;
+}
+
+.letter-content p {
+    margin: 0 0 27px;
+}
+
+.signature {
+    text-align: right;
+    font-size: 21px;
+    font-style: italic;
+    margin-top: 45px;
+}
+
+.cheesecake {
+    text-align: center;
+    font-size: 17px;
+    margin-top: 35px;
+}
+
+/* =========================
+   FINAL
+========================= */
+
+#final {
+    min-height: 100vh;
+    background: #fffaf7;
+    text-align: center;
+    overflow: hidden;
+}
+
+.final-content {
+    position: relative;
+    z-index: 10;
+}
+
+.final-title {
+    font-size: clamp(43px, 11vw, 78px);
+    font-weight: normal;
+    margin: 0;
+    opacity: 0;
+    animation: finalAppear 3s ease forwards;
+    animation-delay: 1s;
+}
+
+.final-sub {
+    font-size: clamp(17px, 4vw, 23px);
+    margin-top: 20px;
+    opacity: 0;
+    animation: finalAppear 3s ease forwards;
+    animation-delay: 3s;
+    font-style: italic;
+}
+
+@keyframes finalAppear {
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.falling {
+    position: absolute;
+    top: -50px;
+    font-size: 20px;
+    opacity: .55;
+    animation: fall linear forwards;
+    z-index: 1;
+    pointer-events: none;
+}
+
+@keyframes fall {
+    from {
+        transform: translateY(-60px) rotate(0deg);
+    }
+    to {
+        transform: translateY(115vh) rotate(360deg);
+    }
+}
+
+/* =========================
+   MUSIC PLAYER
+========================= */
+
+.music-player {
+    position: fixed;
+    left: 50%;
+    bottom: 15px;
+    transform: translateX(-50%);
+    z-index: 1000;
+    background: rgba(70,48,48,.9);
+    color: white;
+    border-radius: 30px;
+    padding: 8px 14px 8px 8px;
+    display: none;
+    align-items: center;
+    gap: 9px;
+    max-width: calc(100vw - 30px);
+    box-shadow: 0 8px 22px rgba(50,30,30,.18);
+}
+
+.music-player.show {
+    display: flex;
+}
+
+.music-toggle {
+    border: none;
+    background: #fff;
+    color: #573d3d;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    font-size: 15px;
+}
+
+.music-name {
+    font-family: Arial, sans-serif;
+    font-size: 12px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 190px;
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 600px) {
+
+    .section {
+        padding-left: 16px;
+        padding-right: 16px;
+    }
+
+    .paper {
+        padding: 32px 22px 50px;
+    }
+
+    .letter-content {
+        font-size: 17px;
+        line-height: 1.95;
+    }
+
+    .video-card {
+        padding: 8px;
+    }
+
+    .video-card video {
+        max-height: 70vh;
+    }
+
+    .music-name {
+        max-width: 145px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- =====================================================
+     1. LOCK
+===================================================== -->
+
+<section id="lock" class="section active">
+
+    <div class="lock-flower lf1">🌿</div>
+    <div class="lock-flower lf2">🌸</div>
+    <div class="lock-flower lf3">🍃</div>
+    <div class="lock-flower lf4">🌷</div>
+
+    <div class="lock-heart">♡</div>
+
+    <h1>A little something for you</h1>
+
+    <div class="subtitle">
+        Three little answers unlock everything. ♡
+    </div>
+
+    <div class="question">
+        What nickname do I call you? ♡
+    </div>
+
+    <input
+        id="answer1"
+        class="answer"
+        type="text"
+        autocomplete="off"
+        placeholder="your answer..."
+    >
+
+    <div class="question">
+        When is our anniversary? 🌷
+    </div>
+
+    <input
+        id="answer2"
+        class="answer"
+        type="text"
+        autocomplete="off"
+        placeholder="day + month..."
+    >
+
+    <div class="question">
+        What's my favourite flower? 🌸
+    </div>
+
+    <input
+        id="answer3"
+        class="answer"
+        type="text"
+        autocomplete="off"
+        placeholder="a flower..."
+    >
+
+    <button class="lock-btn" onclick="unlock()">
+        Unlock ♡
+    </button>
+
+    <div id="error"></div>
+
+</section>
+
+
+<!-- =====================================================
+     2. SONGS
+===================================================== -->
+
+<section id="songs" class="section">
+
+    <h1>Choose a song ♫</h1>
+
+    <p class="song-subtitle">
+        Pick the one you want to hear while you go through this.
+        Once you choose, let the music stay with you. ♡
+    </p>
+
+    <div class="song-list">
+
+        <div class="song-card" onclick="chooseSong(0)">
+            <div class="song-title">
+                I Thought I Saw Your Face Today
+            </div>
+            <div class="song-artist">
+                She & Him
+            </div>
+        </div>
+
+        <div class="song-card" onclick="chooseSong(1)">
+            <div class="song-title">
+                The Way I Loved You
+            </div>
+            <div class="song-artist">
+                Taylor Swift
+            </div>
+        </div>
+
+        <div class="song-card" onclick="chooseSong(2)">
+            <div class="song-title">
+                Can't Help Falling in Love
+            </div>
+            <div class="song-artist">
+                Elvis Presley
+            </div>
+        </div>
+
+    </div>
+
+    <div class="music-choice">
+        Tap a song to begin ♡
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     3. INTRO
+===================================================== -->
+
+<section id="intro" class="section">
+
+    <div class="intro-flower">🌷</div>
+
+    <h1>Happy Birthday, Carino ♡</h1>
+
+    <p class="intro-text">
+        I couldn't be there beside you to wish you in person,
+        so I made you a tiny little world instead.
+        Take your time with it.
+        There's a lot of love hidden in here. 🤍
+    </p>
+
+    <button class="next-btn" onclick="showSection('memories')">
+        Keep going ♡
+    </button>
+
+</section>
+
+
+<!-- =====================================================
+     4. MEMORIES
+===================================================== -->
+
+<section id="memories" class="section">
+
+    <h1>The memories we share</h1>
+
+    <p class="memories-sub">
+        Some moments are small, but somehow they stay forever.
+    </p>
+
+    <div class="photo-stack">
+
+        <div class="memory-card">
+            <img
+                src="2a9c0291-d66a-46a7-bd40-6d751050d81c.JPG"
+                alt="A memory"
+                loading="lazy"
+            >
+            <div class="memory-caption">
+                one of the little moments I'd keep forever ♡
+            </div>
+        </div>
+
+        <div class="memory-card">
+            <img
+                src="IMG_6830.jpg"
+                alt="A memory"
+                loading="lazy"
+            >
+            <div class="memory-caption">
+                another memory that makes me smile
+            </div>
+        </div>
+
+        <div class="memory-card">
+            <img
+                src="IMG_8104.jpg"
+                alt="A memory"
+                loading="lazy"
+            >
+            <div class="memory-caption">
+                and another little piece of us 🤍
+            </div>
+        </div>
+
+    </div>
+
+    <button class="next-btn" onclick="showSection('envelopeScreen')">
+        There's a letter for you ♡
+    </button>
+
+</section>
+
+
+<!-- =====================================================
+     5. ENVELOPE
+===================================================== -->
+
+<section id="envelopeScreen" class="section">
+
+    <h1>A letter, just for you 💌</h1>
+
+    <div class="envelope-area">
+
+        <div id="envelope" class="envelope">
+
+            <div class="letter-paper">
+                For all the things I never say enough... ♡
+            </div>
+
+            <div class="envelope-flap"></div>
+
+        </div>
+
+    </div>
+
+    <button
+        id="openEnvelopeBtn"
+        class="open-envelope-btn"
+        onclick="openEnvelope()"
+    >
+        Open it 💌
+    </button>
+
+    <div class="envelope-hint">
+        carefully... there's something inside
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     6. EDITS
+===================================================== -->
+
+<section id="edits" class="section">
+
+    <h1>Two little edits 🎬</h1>
+
+    <p class="edits-sub">
+        Because apparently one wasn't enough. ♡
+    </p>
+
+    <div class="video-list">
+
+        <div class="video-card">
+
+            <h2>Edit One ♡</h2>
+
+            <video
+                id="editVideo1"
+                controls
+                playsinline
+                webkit-playsinline
+                preload="metadata"
+                poster=""
+            >
+                <source src="edit1.mp4" type="video/mp4">
+                Your browser does not support MP4 video.
+            </video>
+
+        </div>
+
+
+        <div class="video-card">
+
+            <h2>Edit Two ♡</h2>
+
+            <video
+                id="editVideo2"
+                controls
+                playsinline
+                webkit-playsinline
+                preload="metadata"
+                poster=""
+            >
+                <source src="edit2.mp4" type="video/mp4">
+                Your browser does not support MP4 video.
+            </video>
+
+        </div>
+
+    </div>
+
+    <button class="next-btn" onclick="showSection('notesJar')">
+        I have more for you ♡
+    </button>
+
+</section>
+
+
+<!-- =====================================================
+     7. 10 NOTES
+===================================================== -->
+
+<section id="notesJar" class="section">
+
+    <h1>A jar of little things 🫙</h1>
+
+    <p class="jar-sub">
+        Ten tiny notes. One at a time.
+    </p>
+
+    <div class="jar">
+        <div class="jar-lid"></div>
+        <div class="jar-heart">♡</div>
+    </div>
+
+    <div id="noteDisplay" class="note-display">
+        Tap the button and take one. ♡
+    </div>
+
+    <div id="noteCount" class="note-count">
+        10 notes remaining
+    </div>
+
+    <button
+        id="noteButton"
+        class="note-btn"
+        onclick="takeNote()"
+    >
+        Take a note ♡
+    </button>
+
+    <button
+        id="notesNext"
+        class="next-btn"
+        style="display:none;"
+        onclick="showSection('letter')"
+    >
+        There's one last letter ♡
+    </button>
+
+</section>
+
+
+<!-- =====================================================
+     8. HEARTFELT LETTER
+===================================================== -->
+
+<section id="letter" class="section">
+
+    <div class="paper">
+
+        <h1 class="paper-title">
+            A little letter 🤍
+        </h1>
+
+        <div class="letter-content">
+
+            <p>
+                I don't think I could ever put all of our memories
+                into one little letter, but I still wanted to try.
+                When I think about the time we've spent together,
+                it's always the little things that come back to me
+                first.
+            </p>
+
+            <p>
+                I loved spending time with your family and having
+                you around my brothers too. I loved our movie nights,
+                the random conversations, and all those times we
+                somehow ended up staying awake talking until
+                two or three in the morning. Those late-night talks
+                are memories I know I'll always keep close.
+            </p>
+
+            <p>
+                And then there was cooking together. Well...
+                technically, <i>you</i> cooking and me mostly
+                watching you and taking videos. 😭
+                You never even let me do much work anyway.
+                But honestly, I loved standing there watching you,
+                recording those tiny moments, and just being there
+                with you.
+            </p>
+
+            <p>
+                I also loved our evenings when we'd sing together.
+                I genuinely adore hearing you sing.
+                You could sing the same song a million times,
+                and somehow I'd still want to hear you sing it
+                one more time. There is just something about your
+                voice that I could never get tired of.
+            </p>
+
+            <p>
+                You were also there for me whenever I needed you,
+                except for those moments when you were busy,
+                obviously. And I loved how you'd bring me flowers
+                whenever you went out. Even if you saw a tiny flower
+                somewhere, you'd pick it and give it to me.
+                Sometimes you'd pick six or seven of those tiny
+                sunflower-like flowers and make a little bouquet.
+                Those little bouquets meant so much to me.
+            </p>
+
+            <p>
+                I'll always remember the first bouquet especially.
+                The yellow flowers, the little purple flowers whose
+                name I still don't know, the pink rose, and the
+                hibiscus. It was such a simple thing, but it became
+                one of those memories that somehow stayed with me.
+            </p>
+
+            <p>
+                And of course, I cannot write this letter without
+                mentioning the greatest tragedy of all:
+                <b>the cheesecake.</b> 😭
+                I have been asking for cheesecake for FOUR MONTHS.
+                FOUR. MONTHS.
+                And yet somehow I am still here, still waiting,
+                still loving you despite this betrayal.
+            </p>
+
+            <p>
+                Jokes aside, no matter who you become, where life
+                takes you, or how much things change, I hope you
+                always know that you mattered to me deeply.
+                I adore the memories we've made, the silly little
+                moments, the quiet ones, the laughter, the songs,
+                the flowers, the movies, the late nights...
+                all of it.
+            </p>
+
+            <p>
+                I hope this year is kind to you.
+                I hope you take care of yourself, stay safe,
+                laugh a lot, find things that make you happy,
+                and become everything you want to become.
+                And I hope somewhere in all of those future
+                memories, you remember that there was someone
+                who cared about you so, so much.
+            </p>
+
+            <div class="signature">
+                Happy birthday, Carino. ♡
+            </div>
+
+            <div class="cheesecake">
+                And yes... I am STILL waiting for my cheesecake. 😭🍰
+            </div>
+
+        </div>
+
+        <button class="next-btn" onclick="showFinal()">
+            One last thing... ♡
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     9. FINAL
+===================================================== -->
+
+<section id="final" class="section">
+
+    <div class="final-content">
+
+        <h1 class="final-title">
+            Happy Birthday, Carino
+        </h1>
+
+        <div class="final-sub">
+            You are loved more than you imagine.
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     MUSIC PLAYER
+===================================================== -->
+
+<div id="musicPlayer" class="music-player">
+
+    <button
+        id="musicToggle"
+        class="music-toggle"
+        onclick="toggleMusic()"
+    >
+        ▶
+    </button>
+
+    <div id="musicName" class="music-name">
+        Music
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     AUDIO
+===================================================== -->
+
+<audio
+    id="audio0"
+    preload="auto"
+    loop
+>
+    <source
+        src="AUDIO-2026-09-05-14-00-58.mp3"
+        type="audio/mpeg"
+    >
+</audio>
+
+<audio
+    id="audio1"
+    preload="auto"
+    loop
+>
+    <source
+        src="AUDIO-2026-09-05-14-01-16(1).mp3"
+        type="audio/mpeg"
+    >
+</audio>
+
+<audio
+    id="audio2"
+    preload="auto"
+    loop
+>
+    <source
+        src="AUDIO-2026-09-05-14-01-33.mp3"
+        type="audio/mpeg"
+    >
+</audio>
+
+
+<script>
+
+/* =====================================================
+   SECTION CONTROL
+===================================================== */
+
+function showSection(id) {
+
+    document.querySelectorAll(".section").forEach(section => {
+        section.classList.remove("active");
+    });
+
+    const target = document.getElementById(id);
+
+    if (target) {
+        target.classList.add("active");
+        window.scrollTo({
+            top: 0,
+            behavior: "instant"
+        });
+    }
+
+    if (id === "final") {
+        startFalling();
+    }
+}
+
+
+/* =====================================================
+   LOCK
+===================================================== */
+
+function normalize(value) {
+    return value
+        .trim()
+        .toLowerCase()
+        .replace(/\s+/g, " ");
+}
+
+function unlock() {
+
+    const a1 = normalize(
+        document.getElementById("answer1").value
+    );
+
+    const a2 = normalize(
+        document.getElementById("answer2").value
+    );
+
+    const a3 = normalize(
+        document.getElementById("answer3").value
+    );
+
+    const nicknameCorrect =
+        a1 === "carino" ||
+        a1 === "carina";
+
+    const anniversaryCorrect =
+        a2 === "23 january" ||
+        a2 === "january 23" ||
+        a2 === "23/01" ||
+        a2 === "23-01" ||
+        a2 === "23 01";
+
+    const flowerCorrect =
+        a3 === "lily" ||
+        a3 === "lilies";
+
+    const error = document.getElementById("error");
+
+    if (
+        nicknameCorrect &&
+        anniversaryCorrect &&
+        flowerCorrect
+    ) {
+
+        error.textContent = "";
+
+        showSection("songs");
+
+    } else {
+
+        error.textContent =
+            "Hmm... one of those answers isn't quite right. ♡";
+
+    }
+}
+
+
+/* =====================================================
+   MUSIC
+===================================================== */
+
+const audios = [
+    document.getElementById("audio0"),
+    document.getElementById("audio1"),
+    document.getElementById("audio2")
+];
+
+const songNames = [
+    "I Thought I Saw Your Face Today — She & Him",
+    "The Way I Loved You — Taylor Swift",
+    "Can't Help Falling in Love — Elvis Presley"
+];
+
+let currentAudio = null;
+let currentSong = -1;
+
+function chooseSong(index) {
+
+    audios.forEach(audio => {
+        audio.pause();
+        audio.currentTime = 0;
+    });
+
+    currentAudio = audios[index];
+    currentSong = index;
+
+    document.getElementById("musicName").textContent =
+        songNames[index];
+
+    document
+        .getElementById("musicPlayer")
+        .classList.add("show");
+
+    /*
+       This play() happens directly from the user's tap.
+       That is important because mobile browsers block
+       unexpected autoplay.
+    */
+
+    currentAudio.play()
+        .then(() => {
+
+            document.getElementById("musicToggle")
+                .textContent = "Ⅱ";
+
+            showSection("intro");
+
+        })
+        .catch(() => {
+
+            /*
+               If the browser blocks playback,
+               the user can use the visible play button.
+            */
+
+            document.getElementById("musicToggle")
+                .textContent = "▶";
+
+            showSection("intro");
+
+        });
+}
+
+
+function toggleMusic() {
+
+    if (!currentAudio) {
+        return;
+    }
+
+    if (currentAudio.paused) {
+
+        currentAudio.play()
+            .then(() => {
+                document.getElementById("musicToggle")
+                    .textContent = "Ⅱ";
+            })
+            .catch(() => {});
+
+    } else {
+
+        currentAudio.pause();
+
+        document.getElementById("musicToggle")
+            .textContent = "▶";
+    }
+}
+
+
+/* =====================================================
+   ENVELOPE
+===================================================== */
+
+let envelopeOpened = false;
+
+function openEnvelope() {
+
+    const envelope =
+        document.getElementById("envelope");
+
+    const button =
+        document.getElementById("openEnvelopeBtn");
+
+    if (!envelopeOpened) {
+
+        envelope.classList.add("open");
+
+        envelopeOpened = true;
+
+        button.textContent =
+            "Continue ♡";
+
+    } else {
+
+        showSection("edits");
+
+    }
+}
+
+
+/* =====================================================
+   NOTES
+===================================================== */
+
+const originalNotes = [
+
+    "You make ordinary moments feel like little memories I want to keep forever. ♡",
+
+    "I still remember the tiny flowers you used to pick for me. They meant more than you probably knew. 🌼",
+
+    "Even after hearing the same song a million times, I could still listen to you sing it again. 🎶",
+
+    "Some of my favourite memories are the quiet ones — late talks, random laughs, and just being together. 🌙",
+
+    "You are one of those people who left little pieces of happiness in my memories. 🤍",
+
+    "I love the way you used to turn a few tiny flowers into the cutest little bouquet. 🌻",
+
+    "Movie nights, cooking together, singing in the evening… I would replay those days if I could. 🎬",
+
+    "No matter who you become, I hope you always know that you mattered to me deeply. ♡",
+
+    "I still adore the memory of that first bouquet — yellow, purple, pink and hibiscus. 💐",
+
+    "And yes… I am STILL waiting for that cheesecake. Four months and counting. 😭🍰"
+
+];
+
+let remainingNotes = [...originalNotes];
+
+function takeNote() {
+
+    if (remainingNotes.length === 0) {
+        return;
+    }
+
+    const randomIndex =
+        Math.floor(Math.random() * remainingNotes.length);
+
+    const note =
+        remainingNotes.splice(randomIndex, 1)[0];
+
+    document.getElementById("noteDisplay")
+        .textContent = note;
+
+    const remaining =
+        remainingNotes.length;
+
+    document.getElementById("noteCount")
+        .textContent =
+        remaining +
+        (remaining === 1
+            ? " note remaining"
+            : " notes remaining");
+
+    if (remaining === 0) {
+
+        document.getElementById("noteButton")
+            .disabled = true;
+
+        document.getElementById("noteButton")
+            .textContent = "The jar is empty ♡";
+
+        document.getElementById("notesNext")
+            .style.display = "inline-block";
+    }
+}
+
+
+/* =====================================================
+   FINAL FALLING FLOWERS / LEAVES / STARS
+===================================================== */
+
+let fallingStarted = false;
+
+function startFalling() {
+
+    if (fallingStarted) {
+        return;
+    }
+
+    fallingStarted = true;
+
+    const symbols = [
+        "🌸",
+        "🌷",
+        "🌼",
+        "🍃",
+        "🌿",
+        "✦",
+        "✧",
+        "♡"
+    ];
+
+    function createFalling() {
+
+        const finalSection =
+            document.getElementById("final");
+
+        if (!finalSection.classList.contains("active")) {
+            return;
+        }
+
+        const item =
+            document.createElement("div");
+
+        item.className = "falling";
+
+        item.textContent =
+            symbols[
+                Math.floor(
+                    Math.random() * symbols.length
+                )
+            ];
+
+        item.style.left =
+            Math.random() * 100 + "%";
+
+        item.style.fontSize =
+            (14 + Math.random() * 18) + "px";
+
+        item.style.animationDuration =
+            (6 + Math.random() * 7) + "s";
+
+        item.style.animationDelay =
+            Math.random() * 2 + "s";
+
+        finalSection.appendChild(item);
+
+        setTimeout(() => {
+            item.remove();
+        }, 15000);
+    }
+
+    for (let i = 0; i < 18; i++) {
+        setTimeout(createFalling, i * 250);
+    }
+
+    setInterval(createFalling, 700);
+}
+
+
+/* =====================================================
+   VIDEO COMPATIBILITY
+===================================================== */
+
+const videos = [
+    document.getElementById("editVideo1"),
+    document.getElementById("editVideo2")
+];
+
+/*
+   Pause the other edit if one starts playing.
+   This prevents both videos playing at once.
+*/
+
+videos.forEach(video => {
+
+    video.addEventListener("play", () => {
+
+        videos.forEach(other => {
+
+            if (other !== video) {
+                other.pause();
+            }
+
+        });
+
+    });
+
+});
+
+
+/* =====================================================
+   PREVENT AUDIO + VIDEO FROM FIGHTING
+===================================================== */
+
+videos.forEach(video => {
+
+    video.addEventListener("play", () => {
+
+        if (currentAudio && !currentAudio.paused) {
+            currentAudio.pause();
+
+            document.getElementById("musicToggle")
+                .textContent = "▶";
+        }
+
+    });
+
+});
+
+
+/* =====================================================
+   KEYBOARD ENTER SUPPORT
+===================================================== */
+
+document.querySelectorAll(".answer").forEach(input => {
+
+    input.addEventListener("keydown", event => {
+
+        if (event.key === "Enter") {
+            unlock();
+        }
+
+    });
+
+});
+
+</script>
+
+</body>
+</html>
