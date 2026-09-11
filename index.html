@@ -1,0 +1,1319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For Carino ♡</title>
+
+<style>
+*{
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    margin:0;
+    background:#fff8f5;
+    color:#563f47;
+    font-family:Georgia,"Times New Roman",serif;
+}
+
+.hidden{
+    display:none!important;
+}
+
+.screen{
+    min-height:100vh;
+    padding:35px 18px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+.card{
+    width:min(720px,94vw);
+    background:#fffdfb;
+    border:1px solid #ead8d3;
+    border-radius:25px;
+    padding:35px 25px;
+    box-shadow:0 18px 60px rgba(90,55,65,.12);
+}
+
+h1,h2{
+    font-weight:400;
+}
+
+h1{
+    font-size:clamp(2.4rem,9vw,4.7rem);
+    line-height:1.15;
+}
+
+h2{
+    font-size:clamp(1.9rem,7vw,3rem);
+}
+
+p{
+    font-size:1.08rem;
+    line-height:1.9;
+}
+
+.eyebrow{
+    font-size:.78rem;
+    letter-spacing:.18em;
+    text-transform:uppercase;
+    color:#9b6d79;
+}
+
+button{
+    border:none;
+    border-radius:999px;
+    padding:13px 22px;
+    margin:7px;
+    background:#8e5267;
+    color:white;
+    font-family:inherit;
+    font-size:1rem;
+    cursor:pointer;
+}
+
+input{
+    width:100%;
+    padding:15px 18px;
+    border-radius:14px;
+    border:1px solid #dcc6c2;
+    background:#fffdfb;
+    font-size:1rem;
+    outline:none;
+}
+
+.error{
+    color:#b65c67;
+    min-height:25px;
+}
+
+
+/* LOCK */
+
+.lock{
+    text-align:center;
+}
+
+.heart{
+    font-size:5rem;
+    animation:heartbeat 1.4s infinite;
+}
+
+@keyframes heartbeat{
+    50%{
+        transform:scale(1.08);
+    }
+}
+
+
+/* SONGS */
+
+.song-list{
+    display:grid;
+    gap:13px;
+    margin:25px 0;
+}
+
+.song{
+    width:100%;
+    margin:0;
+    text-align:left;
+    background:#fff;
+    color:#563f47;
+    border:1px solid #ead8d3;
+    border-radius:18px;
+    padding:18px;
+}
+
+.song strong{
+    display:block;
+    font-size:1.05rem;
+}
+
+.song span{
+    font-size:.9rem;
+    color:#977681;
+}
+
+.song.active{
+    background:#fff3f5;
+    border-color:#9e6175;
+}
+
+audio{
+    width:100%;
+    margin:10px 0 20px;
+}
+
+
+/* MEMORIES */
+
+.photo-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:14px;
+    margin:25px 0;
+}
+
+.photo-grid img{
+    width:100%;
+    height:240px;
+    object-fit:cover;
+    border-radius:18px;
+    border:5px solid white;
+    box-shadow:0 8px 25px rgba(60,30,40,.12);
+}
+
+@media(max-width:650px){
+    .photo-grid{
+        grid-template-columns:1fr;
+    }
+
+    .photo-grid img{
+        height:330px;
+    }
+}
+
+
+/* ENVELOPE */
+
+.envelope-wrap{
+    text-align:center;
+}
+
+.envelope{
+    width:min(430px,85vw);
+    height:270px;
+    margin:40px auto;
+    position:relative;
+    background:#d98f9e;
+    border-radius:8px;
+    cursor:pointer;
+    box-shadow:0 18px 35px rgba(80,45,55,.16);
+    perspective:700px;
+}
+
+.envelope:before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:#c97e8e;
+    clip-path:polygon(
+        0 0,
+        50% 48%,
+        100% 0,
+        100% 100%,
+        0 100%
+    );
+    border-radius:8px;
+}
+
+.flap{
+    position:absolute;
+    left:0;
+    top:0;
+    width:100%;
+    height:100%;
+    background:#e5a2ae;
+    clip-path:polygon(
+        0 0,
+        100% 0,
+        50% 55%
+    );
+    transform-origin:top;
+    transition:.8s;
+    z-index:4;
+}
+
+.envelope.open .flap{
+    transform:rotateX(180deg);
+}
+
+.letter-pop{
+    position:absolute;
+    z-index:3;
+    left:8%;
+    top:20%;
+    width:84%;
+    height:70%;
+    background:#fffaf2;
+    border-radius:5px;
+    padding:25px;
+    transition:.8s;
+}
+
+.envelope.open .letter-pop{
+    transform:translateY(-105px);
+}
+
+.seal{
+    position:absolute;
+    z-index:5;
+    left:50%;
+    top:50%;
+    transform:translate(-50%,-50%);
+    font-size:2rem;
+    transition:.5s;
+}
+
+.envelope.open .seal{
+    opacity:0;
+}
+
+
+/* VIDEOS */
+
+.video-card video{
+    display:block;
+    width:100%;
+    max-width:100%;
+    max-height:70vh;
+    background:#171114;
+    border-radius:18px;
+    margin:15px 0 35px;
+}
+
+.video-title{
+    margin-top:30px;
+    margin-bottom:8px;
+}
+
+
+/* JAR */
+
+.jar{
+    text-align:center;
+}
+
+.jar-icon{
+    font-size:6rem;
+}
+
+.note{
+    min-height:230px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:30px;
+    background:#fffdf8;
+    border:1px solid #eadbd1;
+    border-radius:18px;
+    font-size:1.3rem;
+    line-height:1.8;
+}
+
+.count{
+    margin:15px;
+    color:#9b737b;
+}
+
+
+/* LETTER */
+
+.notebook{
+    max-height:72vh;
+    overflow-y:auto;
+    padding:42px clamp(24px,7vw,70px);
+    border:1px solid #e5d7ce;
+    border-radius:18px;
+    background:#fffdf8;
+
+    background-image:
+        repeating-linear-gradient(
+            to bottom,
+            transparent 0,
+            transparent 39px,
+            #eadfe0 40px
+        );
+}
+
+.notebook p{
+    font-size:clamp(1.05rem,2.5vw,1.22rem);
+    line-height:2.05;
+    margin:0 0 30px;
+}
+
+
+/* FINAL */
+
+.final{
+    min-height:100vh;
+    background:#fffaf7;
+    text-align:center;
+    position:relative;
+    overflow:hidden;
+}
+
+.final-content{
+    position:relative;
+    z-index:5;
+}
+
+.final h1{
+    opacity:0;
+    transform:translateY(20px);
+    animation:appear 2.8s ease forwards;
+    animation-delay:1.2s;
+}
+
+.final p{
+    opacity:0;
+    animation:appear 2s ease forwards;
+    animation-delay:3s;
+}
+
+@keyframes appear{
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+.falling{
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+    overflow:hidden;
+}
+
+.fall{
+    position:absolute;
+    top:-50px;
+    opacity:.7;
+    animation:fall linear forwards;
+}
+
+@keyframes fall{
+    to{
+        transform:
+            translate3d(var(--x),110vh,0)
+            rotate(360deg);
+    }
+}
+</style>
+</head>
+
+
+<body>
+
+
+<!-- LOCK -->
+
+<section id="lock" class="screen">
+
+<div class="card lock">
+
+<div class="heart">♡</div>
+
+<p class="eyebrow">
+a tiny little secret
+</p>
+
+<h2>
+Unlock this for Carino ♡
+</h2>
+
+<p id="question"></p>
+
+<input
+id="answer"
+autocomplete="off"
+placeholder="Your answer..."
+>
+
+<br>
+
+<button onclick="checkAnswer()">
+Unlock ♡
+</button>
+
+<div id="error" class="error"></div>
+
+</div>
+
+</section>
+
+
+
+<!-- SONG CHOICE -->
+
+<section id="songs" class="screen hidden">
+
+<div class="card">
+
+<p class="eyebrow">
+before we begin
+</p>
+
+<h2>
+Choose a song 🎶
+</h2>
+
+<p>
+Pick the one you want to hear while you go through
+this little birthday surprise.
+</p>
+
+
+<div class="song-list">
+
+
+<button
+class="song"
+onclick="playSong('Song1.mp3',this)"
+>
+
+<strong>
+♡ I Thought I Saw Your Face Today
+</strong>
+
+<span>
+She & Him
+</span>
+
+</button>
+
+
+
+<button
+class="song"
+onclick="playSong('Song2.mp3',this)"
+>
+
+<strong>
+♡ The Way I Loved You
+</strong>
+
+<span>
+Taylor Swift
+</span>
+
+</button>
+
+
+
+<button
+class="song"
+onclick="playSong('Song3.mp3',this)"
+>
+
+<strong>
+♡ Can't Help Falling in Love
+</strong>
+
+<span>
+Elvis Presley
+</span>
+
+</button>
+
+
+</div>
+
+
+<audio
+id="music"
+controls
+preload="auto"
+></audio>
+
+
+<button onclick="go('intro')">
+Continue ♡
+</button>
+
+</div>
+
+</section>
+
+
+
+<!-- INTRO -->
+
+<section id="intro" class="screen hidden">
+
+<div
+class="card"
+style="text-align:center"
+>
+
+<p class="eyebrow">
+for one very special person
+</p>
+
+<h1>
+Happy Birthday,<br>
+Carino ♡
+</h1>
+
+<p>
+There are a few little memories, words and
+pieces of my heart waiting for you here.
+</p>
+
+<button onclick="go('memories')">
+Start the surprise ♡
+</button>
+
+</div>
+
+</section>
+
+
+
+<!-- MEMORIES -->
+
+<section id="memories" class="screen hidden">
+
+<div class="card">
+
+<p class="eyebrow">
+little pieces of us
+</p>
+
+<h2>
+The memories we share
+</h2>
+
+
+<div class="photo-grid">
+
+<img
+src="2a9c0291-d66a-46a7-bd40-6d751050d81c.JPG"
+alt="Memory 1"
+>
+
+<img
+src="IMG_6830.jpg"
+alt="Memory 2"
+>
+
+<img
+src="IMG_8104.jpg"
+alt="Memory 3"
+>
+
+</div>
+
+
+<p>
+Some moments become memories before we even realize
+how much they mean.
+</p>
+
+
+<button onclick="go('envelope')">
+There's more ♡
+</button>
+
+</div>
+
+</section>
+
+
+
+<!-- ENVELOPE -->
+
+<section id="envelope" class="screen hidden">
+
+<div class="card envelope-wrap">
+
+<p class="eyebrow">
+open carefully
+</p>
+
+<h2>
+A little letter for you 💌
+</h2>
+
+<p>
+Tap the envelope.
+</p>
+
+
+<div
+id="env"
+class="envelope"
+onclick="openEnvelope()"
+>
+
+<div class="letter-pop">
+
+For Carino ♡
+
+<br><br>
+
+A little something from me...
+
+</div>
+
+<div class="flap"></div>
+
+<div class="seal">
+♡
+</div>
+
+</div>
+
+
+<button
+id="afterEnvelope"
+class="hidden"
+onclick="go('edits')"
+>
+
+Continue ♡
+
+</button>
+
+</div>
+
+</section>
+
+
+
+<!-- EDITS -->
+
+<section id="edits" class="screen hidden">
+
+<div class="card video-card">
+
+<p class="eyebrow">
+made with love
+</p>
+
+<h2>
+Two little edits 🎬
+</h2>
+
+
+<p class="video-title">
+<strong>Edit 1</strong>
+</p>
+
+<video
+controls
+playsinline
+preload="metadata"
+>
+
+<source
+src="Edit1.mp4"
+type="video/mp4"
+>
+
+<source
+src="Edit1.mov"
+type="video/quicktime"
+>
+
+</video>
+
+
+
+<p class="video-title">
+<strong>Edit 2</strong>
+</p>
+
+<video
+controls
+playsinline
+preload="metadata"
+>
+
+<source
+src="Edit2.mp4"
+type="video/mp4"
+>
+
+<source
+src="Edit2.mov"
+type="video/quicktime"
+>
+
+</video>
+
+
+<button onclick="go('jar')">
+Continue ♡
+</button>
+
+</div>
+
+</section>
+
+
+
+<!-- TEN NOTES -->
+
+<section id="jar" class="screen hidden">
+
+<div class="card jar">
+
+<p class="eyebrow">
+pick one
+</p>
+
+<h2>
+Ten tiny notes 🫙
+</h2>
+
+<div class="jar-icon">
+🫙
+</div>
+
+
+<div
+id="note"
+class="note"
+>
+
+Tap below for a little note ♡
+
+</div>
+
+
+<div
+id="count"
+class="count"
+>
+
+10 notes remaining
+
+</div>
+
+
+<button
+id="noteBtn"
+onclick="showNote()"
+>
+
+Open a note ♡
+
+</button>
+
+
+<button
+id="letterBtn"
+class="hidden"
+onclick="go('letter')"
+>
+
+Read my letter 💌
+
+</button>
+
+</div>
+
+</section>
+
+
+
+<!-- HEARTFELT LETTER -->
+
+<section id="letter" class="screen hidden">
+
+<div class="card">
+
+<p class="eyebrow">
+from my heart
+</p>
+
+<h2>
+For you, Carino ♡
+</h2>
+
+
+<div class="notebook">
+
+
+<p>
+Happy birthday, Carino. ♡ When I think about us,
+I think about all those little moments that somehow
+became some of my favourite memories. Spending time
+with your family and my brothers, watching movies
+together, staying up talking until two or three in
+the morning, and just being around each other made
+ordinary days feel really special. I loved our little
+evenings of singing too, especially because I could
+listen to you sing the same song a million times and
+still never get tired of it. I genuinely adore hearing
+you sing, even when you've already sung the exact same
+thing so many times.
+</p>
+
+
+<p>
+I also love remembering the times we cooked together.
+Well... when I say "cooked together," I mostly mean I
+watched you, took videos of you, and tried to help while
+you somehow never let me do much work. 😭♡ You were
+there for me whenever I needed you, except for those
+moments when you were busy, and that meant more to me
+than I probably said. And then there were the flowers.
+Whenever we went somewhere and you saw flowers, you
+would pick one for me, and even the tiny little
+sunflower-like flowers became a cute little bouquet
+when you picked six or seven of them together.
+I still remember that first bouquet so clearly:
+the yellow flowers, the purple ones whose name I still
+don't know, the pink rose, and the hibiscus. It was
+such a simple thing, but it became one of those memories
+I don't want to lose.
+</p>
+
+
+<p>
+No matter who you become, where life takes you,
+or how much things change, I hope you always remember
+that you mattered deeply to me and that I will always
+care about the person you are. I hope this year gives
+you beautiful moments, peaceful days, reasons to laugh,
+and everything you genuinely deserve. I hope you take
+care of yourself, stay careful, and have the kind of
+year that makes you look back and feel proud and happy.
+And yes, after all this emotional stuff, I have one
+extremely serious issue to mention...
+</p>
+
+
+<p>
+I am STILL waiting for my cheesecake. 😭🍰
+Four months. FOUR. MONTHS.
+
+Anyway, happy birthday, Carino.
+
+I hope you know how loved you are, how much your
+presence has meant to me, and how many little pieces
+of happiness you've left behind in my memories. ♡
+</p>
+
+
+</div>
+
+
+<div style="text-align:center;margin-top:25px">
+
+<button onclick="go('final')">
+One last thing ♡
+</button>
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<!-- FINAL -->
+
+<section
+id="final"
+class="screen final hidden"
+>
+
+<div
+class="falling"
+id="falling"
+></div>
+
+
+<div class="final-content">
+
+<p class="eyebrow">
+♡
+</p>
+
+<h1>
+Happy Birthday, Carino
+</h1>
+
+<p>
+You are loved more than you imagine.
+</p>
+
+</div>
+
+</section>
+
+
+
+<script>
+
+
+/* =========================
+   LOCK QUESTIONS
+========================= */
+
+const questions = [
+
+{
+q:"What nickname do I call you? ♡",
+answers:[
+"carino"
+]
+},
+
+{
+q:"When is our anniversary? 🌷",
+answers:[
+"23 january",
+"january 23",
+"23/01",
+"23-01",
+"23 01"
+]
+},
+
+{
+q:"What's my favourite flower? 🌸",
+answers:[
+"lily"
+]
+}
+
+];
+
+
+let questionIndex=0;
+
+
+document
+.getElementById("question")
+.textContent=
+questions[0].q;
+
+
+function checkAnswer(){
+
+const input=
+document.getElementById("answer");
+
+const error=
+document.getElementById("error");
+
+const answer=
+input.value
+.trim()
+.toLowerCase()
+.replace(/\s+/g," ");
+
+
+if(
+!questions[questionIndex]
+.answers
+.includes(answer)
+){
+
+error.textContent=
+"Not quite... try again ♡";
+
+return;
+
+}
+
+
+questionIndex++;
+
+input.value="";
+error.textContent="";
+
+
+if(
+questionIndex<
+questions.length
+){
+
+document
+.getElementById("question")
+.textContent=
+questions[questionIndex].q;
+
+}else{
+
+go("songs");
+
+}
+
+}
+
+
+document
+.getElementById("answer")
+.addEventListener(
+"keydown",
+function(event){
+
+if(event.key==="Enter"){
+checkAnswer();
+}
+
+}
+);
+
+
+
+/* =========================
+   NAVIGATION
+========================= */
+
+function go(id){
+
+document
+.querySelectorAll("section")
+.forEach(section=>{
+section.classList.add("hidden");
+});
+
+
+document
+.getElementById(id)
+.classList.remove("hidden");
+
+
+window.scrollTo(0,0);
+
+}
+
+
+
+/* =========================
+   MUSIC
+========================= */
+
+const music=
+document.getElementById("music");
+
+
+function playSong(filename,button){
+
+document
+.querySelectorAll(".song")
+.forEach(song=>{
+song.classList.remove("active");
+});
+
+
+button.classList.add("active");
+
+
+music.pause();
+
+music.removeAttribute("src");
+
+music.load();
+
+
+/*
+   Encode the filename so the browser
+   receives the exact GitHub filename.
+*/
+
+const encodedFilename=
+encodeURIComponent(filename);
+
+
+music.src=
+encodedFilename;
+
+
+music.load();
+
+
+music.play()
+.catch(function(){
+
+/*
+   If Safari blocks automatic playback,
+   the visible audio controls can still
+   be used to press Play.
+*/
+
+});
+
+}
+
+
+
+/* =========================
+   ENVELOPE
+========================= */
+
+function openEnvelope(){
+
+const envelope=
+document.getElementById("env");
+
+
+envelope.classList.add("open");
+
+
+setTimeout(function(){
+
+document
+.getElementById("afterEnvelope")
+.classList.remove("hidden");
+
+},900);
+
+}
+
+
+
+/* =========================
+   TEN NOTES
+========================= */
+
+const notes=[
+
+"You make ordinary moments feel like little memories I want to keep forever. ♡",
+
+"I still remember the tiny flowers you used to pick for me. They meant more than you probably knew. 🌼",
+
+"Even after hearing the same song a million times, I could still listen to you sing it again. 🎶",
+
+"Some of my favourite memories are the quiet ones — late talks, random laughs, and just being together. 🌙",
+
+"You are one of those people who left little pieces of happiness in my memories. 🤍",
+
+"I love the way you used to turn a few tiny flowers into the cutest little bouquet. 🌻",
+
+"Movie nights, cooking together, singing in the evening… I would replay those days if I could. 🎬",
+
+"No matter who you become, I hope you always know that you mattered to me deeply. ♡",
+
+"I still adore the memory of that first bouquet — yellow, purple, pink and hibiscus. 💐",
+
+"And yes… I am STILL waiting for that cheesecake. Four months and counting. 😭🍰"
+
+];
+
+
+let remainingNotes=
+[...notes];
+
+
+function showNote(){
+
+if(remainingNotes.length===0){
+return;
+}
+
+
+const randomIndex=
+Math.floor(
+Math.random()*
+remainingNotes.length
+);
+
+
+const selected=
+remainingNotes.splice(
+randomIndex,
+1
+)[0];
+
+
+document
+.getElementById("note")
+.textContent=
+selected;
+
+
+document
+.getElementById("count")
+.textContent=
+remainingNotes.length+
+" notes remaining";
+
+
+if(remainingNotes.length===0){
+
+document
+.getElementById("noteBtn")
+.classList.add("hidden");
+
+
+document
+.getElementById("letterBtn")
+.classList.remove("hidden");
+
+}
+
+}
+
+
+
+/* =========================
+   FALLING FINAL ELEMENTS
+========================= */
+
+const falling=
+document.getElementById("falling");
+
+
+const symbols=[
+"✿",
+"❀",
+"♡",
+"✦",
+"☘",
+"✧"
+];
+
+
+for(let i=0;i<35;i++){
+
+const element=
+document.createElement("span");
+
+
+element.className="fall";
+
+
+element.textContent=
+symbols[
+Math.floor(
+Math.random()*symbols.length
+)
+];
+
+
+element.style.left=
+Math.random()*100+"%";
+
+
+element.style.fontSize=
+(12+Math.random()*20)+"px";
+
+
+element.style.animationDuration=
+(7+Math.random()*8)+"s";
+
+
+element.style.animationDelay=
+(Math.random()*5)+"s";
+
+
+element.style.setProperty(
+"--x",
+(Math.random()*180-90)+"px"
+);
+
+
+falling.appendChild(element);
+
+}
+
+</script>
+
+</body>
+</html>
